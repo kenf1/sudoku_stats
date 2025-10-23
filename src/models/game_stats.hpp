@@ -8,7 +8,6 @@
 
 //round down aka suppress difficulty
 enum class Difficulty : uint8_t { Easy, Medium, Hard, Expert };
-
 std::string difficultyToString(Difficulty d);
 
 struct GameStats {

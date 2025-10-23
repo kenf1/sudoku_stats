@@ -11,15 +11,43 @@ void show_menu() {
     std::cout << "Enter option: ";
 }
 
+int promptMenuChoice() {
+    int option;
+    while (true) {
+        show_menu();
+
+        if (!(std::cin >> option)) {
+            std::cout << "Invalid input. Please enter a valid number.\n";
+            std::cin.clear();  // clear error flags before ignoring
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            continue;
+        }
+
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(),
+                        '\n');  // remove trailing input (for exact match)
+
+        if (option >= 1 && option <= 3) {
+            return option;
+        }
+
+        std::cout << "Invalid option. Try again.\n";
+    }
+}
+
 Difficulty promptDifficulty() {
     int choice;
     while (true) {
-        std::cout << "\nSelect difficulty:\n\n";
-        std::cout << "1. Easy\n2. Medium\n3. Hard\n4. Expert\n\n";
-        std::cout << "Choice: ";
-        std::cin >> choice;
-        if (choice >= 1 && choice <= 4)
+        std::cout << "\nSelect difficulty:\n\n1. Easy\n2. Medium\n3. Hard\n4. "
+                     "Expert\n\nChoice: ";
+        if (!(std::cin >> choice)) {
+            std::cout << "Invalid input. Please enter a number.\n";
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            continue;
+        }
+        if (choice >= 1 && choice <= 4) {
             return static_cast<Difficulty>(choice - 1);
+        }
         std::cout << "Invalid choice. Try again.\n";
     }
 }
